@@ -58,9 +58,15 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
-    //未登录
+    //未登录,不能去交易相关，支付相关，个人中心
+    let toPath = to.path
+    if(toPath.indexOf(`/trade`)!=-1 ||toPath.indexOf(`/pay`)!=-1 ||toPath.indexOf(`/center`)!=-1){
+  //把未登录的时候去而没有去的信息存储在地址栏中（路由）
+   next(`/login?redirect=`+toPath);
+  }else{
+    //去的不是上边这些路由放行
     next()
-  }
+  }}
 });
 
 export default router;

@@ -71,6 +71,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
+//节流
 import throttle from "lodash/throttle";
 export default {
   name: "TypeNav",

@@ -84,11 +84,16 @@ export default {
   methods: {
     async userLogin() {
       try {
+        //登录成功
         const { phone, password } = this;
-        phone &&password &&(await this.$store.dispatch("userLogin", { phone, password }));
-        this.$router.push("/home");
+        phone &&
+          password &&
+          (await this.$store.dispatch("userLogin", { phone, password }));
+        //登录的路由组件：看路由中是否含有query参数，有的话跳到query指定的路由，没有调到home
+        let toPath = this.$route.query.redirect || "/home";
+        this.$router.push(toPath);
       } catch (error) {
-        alert(error.message)
+        alert(error.message);
       }
     },
   },
